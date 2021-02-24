@@ -5,7 +5,6 @@ from flask_jwt import JWT
 from security import authenticate, identity     # created in security.py file
 from resources.user import UserRegister
 from resources.item import Item, ItemList
-from db import db
 from resources.store import Store, StoreList
 
 app = Flask(__name__)
@@ -27,5 +26,6 @@ api.add_resource(UserRegister, "/register")
 
 
 if __name__ == "__main__":     # to prevent running app, when importing anything from this file
+    from db import db
     db.init_app(app)
     app.run(port=5000, debug=True)
