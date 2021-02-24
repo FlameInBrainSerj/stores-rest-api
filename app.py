@@ -14,10 +14,6 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.secret_key = "jose"
 api = Api(app)
 
-db.init_app(app)
-@app.before_first_request
-def create_tables():
-    db.create_all()
 
 
 jwt = JWT(app, authenticate, identity)  # /auth ; Every restart the JWS will update
@@ -31,4 +27,5 @@ api.add_resource(UserRegister, "/register")
 
 
 if __name__ == "__main__":     # to prevent running app, when importing anything from this file
+    db.init_app(app)
     app.run(port=5000, debug=True)
